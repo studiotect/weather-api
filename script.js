@@ -2,10 +2,13 @@ var lat = 45
 var lon = 93
 var citySearch = document.querySelector("#query")
 var queryBtn = document.querySelector("#queryBtn")
+var date;
 
 queryBtn.addEventListener("click", function(event){
   event.preventDefault();
   var city = citySearch.value
+  var element = document.getElementById("query");
+  element.value="";
   fetchTodayWeather(city);
   fetchAPI(city);
 })
@@ -14,8 +17,10 @@ async function fetchTodayWeather(city){
   var api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=1403f67aa3a08844258fc3b9dff6ff41&units=imperial";
   var response = await fetch(api);
   var data = await response.json();
-  console.log(data);
-  console.log(moment(data.dt,"X").format("MM/DD/YYYY"))
+  date = (moment(data.dt,"X").format("MM/DD/YYYY"))
+  console.log(date)
+  var h3El = document.getElementById("Day"+1)
+  h3El.textContent = (moment(data.dt,"X").format("MM/DD/YYYY"))
 }
 
 async function fetchAPI(city){
@@ -23,12 +28,17 @@ async function fetchAPI(city){
   var response = await fetch(api);
   var data = await response.json();
   console.log(data);
-  for (let i = 0; i < data.list.length; i=i+8) {
-    console.log(data.list[i])
+  let dayCounter = 2;
+  for (let i = 9; i < data.list.length; i=i+8) {
     console.log(data.list[i].main.temp)
-    console.log(moment(data.list[i].dt,"X").format("MM/DD/YYYY"))
+    var h3El = document.getElementById("Day"+dayCounter)
+    h3El.textContent = (moment(data.list[i].dt,"X").format("MM/DD/YYYY"))
+    console.log(h3El)
+    dayCounter++
   }
+  
 }
+
 
 /*
   I am loading the sample data via another script tag on the index.html page, so I have that data 
