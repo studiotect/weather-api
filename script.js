@@ -32,11 +32,7 @@ async function fetchTodayWeather(city){
   console.log(icon);
   iconURL = "http://openweathermap.org/img/w/" + icon + ".png";
   let imgEl = document.getElementById("icon"+1);
-  imgEl.textContent = iconURL;
-  var img = document.createElement("img");
-  img.src = "http://www.google.com/intl/en_com/images/logo_plain.png";
-  var src = document.getElementById("icon1");
-  src.appendChild(img);
+  imgEl.setAttribute('src', iconURL);
 
 }
 
