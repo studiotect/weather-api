@@ -97,53 +97,42 @@ a.Days {
   width: 80%;
 }
 
-.card:first-child {
+/* .card:first-child {
   flex: 1 1 2800px;
   width: 100%;
 }
 .card:first-child img {
   flex: 1 1 2800px;
   width: 100%;
-}
+} */
 .card {
   display: flex;
-  flex: 1 1 100px;
+  flex: 100px;
   width: 100%;
   flex-direction: column;
   color:rgb(99, 34, 10);
   padding: 5px;
 }
+.list {
+  list-style-type: none;
+  width
+}
+.icon {
+  width: 24px !important;
+  height: 24px;
+}
+
 .card h3 {
   margin-top: 2rem;
 }
-.card p {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-#pic {
-  color: aqua;
-}
-footer ul{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  list-style-type: none;
-  background-color: rgb(115, 92, 135);
-}
-
-footer ul li a {
-  font-weight: bold;
-  text-decoration: none;
-  color: #b9c6ae;
-}
 
  
-@media screen and (min-width: 992px) {
+/* @media screen and (min-width: 992px) {
   .card {
     width: 25%;
     min-width: 25%;
   }
-}
+} */
 
 /*  select the last child to grow to full width if it has space to grow
   .card-column:last-child {

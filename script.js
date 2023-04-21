@@ -2,7 +2,14 @@ var lat = 45
 var lon = 93
 var citySearch = document.querySelector("#query")
 var queryBtn = document.querySelector("#queryBtn")
-var date;
+
+// fetchToday();
+// function fetchToday(){
+//   var date = moment().format("MM/DD/YYYY");
+//   var h3El = document.getElementById("Day"+1);
+//   h3El.textContent = date;
+// }
+// var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
 queryBtn.addEventListener("click", function(event){
   event.preventDefault();
@@ -14,13 +21,23 @@ queryBtn.addEventListener("click", function(event){
 })
 
 async function fetchTodayWeather(city){
-  var api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=1403f67aa3a08844258fc3b9dff6ff41&units=imperial";
-  var response = await fetch(api);
-  var data = await response.json();
-  date = (moment(data.dt,"X").format("MM/DD/YYYY"))
-  console.log(date)
-  var h3El = document.getElementById("Day"+1)
-  h3El.textContent = (moment(data.dt,"X").format("MM/DD/YYYY"))
+  const api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=1403f67aa3a08844258fc3b9dff6ff41&units=imperial";
+  const response = await fetch(api);
+  const data = await response.json();
+  date = (moment(data.dt,"X").format("MM/DD/YYYY"));
+  console.log(data);
+  let h3El = document.getElementById("Day"+1);
+  h3El.textContent = (moment(data.dt,"X").format("MM/DD/YYYY"));
+  let icon = data.weather[0].icon;
+  console.log(icon);
+  iconURL = "http://openweathermap.org/img/w/" + icon + ".png";
+  let imgEl = document.getElementById("icon"+1);
+  imgEl.textContent = iconURL;
+  var img = document.createElement("img");
+  img.src = "http://www.google.com/intl/en_com/images/logo_plain.png";
+  var src = document.getElementById("icon1");
+  src.appendChild(img);
+
 }
 
 async function fetchAPI(city){
