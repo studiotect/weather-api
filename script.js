@@ -29,7 +29,7 @@ async function fetchAPI(city){
   var data = await response.json();
   console.log(data);
   let dayCounter = 2;
-  for (let i = 9; i < data.list.length; i=i+8) {
+  for (let i = 0; i < data.list.length; i=i+8) {
     console.log(data.list[i].main.temp)
     var h3El = document.getElementById("Day"+dayCounter)
     h3El.textContent = (moment(data.list[i].dt,"X").format("MM/DD/YYYY"))
