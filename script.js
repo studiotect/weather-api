@@ -2,6 +2,10 @@ var lat = 45
 var lon = 93
 var citySearch = document.querySelector("#query")
 var queryBtn = document.querySelector("#queryBtn")
+var cityHistory = [];
+if (localStorage.getItem("location")){
+  cityHistory = JSON.parse(localStorage.getItem("location"))
+}
 
 // fetchToday();
 // function fetchToday(){
@@ -24,15 +28,26 @@ async function fetchTodayWeather(city){
   const api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=1403f67aa3a08844258fc3b9dff6ff41&units=imperial";
   const response = await fetch(api);
   const data = await response.json();
+  if (cityHistory.includes(data.name)=== false){
+    cityHistory.push(data.name)
+    localStorage.setItem("location", JSON.stringify(cityHistory))
+  }
   date = (moment(data.dt,"X").format("MM/DD/YYYY"));
   console.log(data);
   let h3El = document.getElementById("Day"+1);
   h3El.textContent = (moment(data.dt,"X").format("MM/DD/YYYY"));
   let icon = data.weather[0].icon;
+  getIcon(icon);
+}
+
+function getIcon(icon){
   console.log(icon);
   iconURL = "http://openweathermap.org/img/w/" + icon + ".png";
   let imgEl = document.getElementById("icon"+1);
   imgEl.setAttribute('src', iconURL);
+}
+
+function getHumidity(){
 
 }
 
@@ -44,9 +59,15 @@ async function fetchAPI(city){
   let dayCounter = 2;
   for (let i = 0; i < data.list.length; i=i+8) {
     console.log(data.list[i].main.temp)
+    console.log(data.list[i].main.humidity)
     var h3El = document.getElementById("Day"+dayCounter)
     h3El.textContent = (moment(data.list[i].dt,"X").format("MM/DD/YYYY"))
     console.log(h3El)
+    let icon = data.list[i].weather[0].icon;
+    console.log(icon);
+    iconURL = "http://openweathermap.org/img/w/" + icon + ".png";
+    let imgEl = document.getElementById("icon"+dayCounter);
+    imgEl.setAttribute('src', iconURL);
     dayCounter++
   }
   
