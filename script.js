@@ -7,14 +7,8 @@ if (localStorage.getItem("location")){
   cityHistory = JSON.parse(localStorage.getItem("location"))
 }
 
-// fetchToday();
-// function fetchToday(){
-//   var date = moment().format("MM/DD/YYYY");
-//   var h3El = document.getElementById("Day"+1);
-//   h3El.textContent = date;
-// }
-// var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-
+clickEvent();
+function clickEvent(){
 queryBtn.addEventListener("click", function(event){
   event.preventDefault();
   var city = citySearch.value
@@ -22,7 +16,8 @@ queryBtn.addEventListener("click", function(event){
   element.value="";
   fetchTodayWeather(city);
   fetchAPI(city);
-})
+}
+)}
 
 async function fetchTodayWeather(city){
   const api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=1403f67aa3a08844258fc3b9dff6ff41&units=imperial";
@@ -38,8 +33,23 @@ async function fetchTodayWeather(city){
   h3El.textContent = (moment(data.dt,"X").format("MM/DD/YYYY"));
   let icon = data.weather[0].icon;
   getIcon(icon);
+  getTodayTemp();
+  getTodayWind();
+  getTodayHumidity();
 }
-
+function getTodayTemp(){
+  let tempEl = document.getElementById("temp"+1);
+  tempEl.textContent = data.main.temp;
+  console.log(tempEl.textContent)
+}
+function getTodayWind(){
+  let windEl = document.getElementById("wind"+1);
+  windEl.textContent = data.wind.speed;
+}
+function getTodayHumidity(){
+  let humidityEl = document.getElementById("humidity"+1);
+  humidityEl.textContent = data.main.humidity;
+}
 function getIcon(icon){
   console.log(icon);
   iconURL = "http://openweathermap.org/img/w/" + icon + ".png";
@@ -47,9 +57,6 @@ function getIcon(icon){
   imgEl.setAttribute('src', iconURL);
 }
 
-function getHumidity(){
-
-}
 
 async function fetchAPI(city){
   var api = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=1403f67aa3a08844258fc3b9dff6ff41&units=imperial";
@@ -58,22 +65,39 @@ async function fetchAPI(city){
   console.log(data);
   let dayCounter = 2;
   for (let i = 0; i < data.list.length; i=i+8) {
-    console.log(data.list[i].main.temp)
-    console.log(data.list[i].main.humidity)
+    // console.log(data.list[i].main.temp)
+    // console.log(data.list[i].main.humidity)
     var h3El = document.getElementById("Day"+dayCounter)
     h3El.textContent = (moment(data.list[i].dt,"X").format("MM/DD/YYYY"))
+    get5dIcon(i, dayCounter);
+    get5dTemp(i, dayCounter);
+    get5dWind(i, dayCounter);
+    get5dHumidity(i, dayCounter);
     console.log(h3El)
-    let icon = data.list[i].weather[0].icon;
-    console.log(icon);
-    iconURL = "http://openweathermap.org/img/w/" + icon + ".png";
-    let imgEl = document.getElementById("icon"+dayCounter);
-    imgEl.setAttribute('src', iconURL);
     dayCounter++
   }
   
 }
-
-
+function get5dTemp(i, dayCounter){
+  let tempEl = document.getElementById("temp"+dayCounter);
+  tempEl.textContent = data.list[i].main.temp;
+}
+function get5dWind(i, dayCounter){
+  let windEl = document.getElementById("wind"+dayCounter);
+  windEl.textContent = data.list[i].wind.speed;
+}
+function get5dHumidity(i, dayCounter){
+  let humidityEl = document.getElementById("humidity"+dayCounter);
+  humidityEl.textContent = data.list[i].main.humidity;
+}
+function get5dIcon(i, dayCounter){
+  let icon = data.list[i].weather[0].icon;
+  console.log(icon);
+  iconURL = "http://openweathermap.org/img/w/" + icon + ".png";
+  let imgEl = document.getElementById("icon"+dayCounter);
+  imgEl.setAttribute('src', iconURL);
+}
+  
 /*
   I am loading the sample data via another script tag on the index.html page, so I have that data 
   available here as a global variable. It was named sample in the other file so we'll use that here.
