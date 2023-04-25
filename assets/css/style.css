@@ -15,7 +15,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  /* display: flex; */
+  display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: rgb(115, 92, 135);
@@ -25,6 +25,7 @@ header {
 /* Change font size of headings */
 h1 {
   font-size: 200%;
+  margin-left: 5px;
 }
 
 main {

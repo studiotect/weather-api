@@ -73,15 +73,15 @@ async function fetchTodayWeather(city){
 function getTodayTemp(data){
   let tempEl = document.getElementById("temp"+1);
   console.log(data)
-  tempEl.textContent = data.main.temp;
+  tempEl.textContent = `Temp: ${data.main.temp}°F`;
 }
 function getTodayWind(data){
   let windEl = document.getElementById("wind"+1);
-  windEl.textContent = data.wind.speed;
+  windEl.textContent = `Wind: ${data.wind.speed} MPH`;
 }
 function getTodayHumidity(data){
   let humidityEl = document.getElementById("humidity"+1);
-  humidityEl.textContent = data.main.humidity;
+  humidityEl.textContent = `Humidity ${data.main.humidity}%`;
 }
 function getIcon(icon){
   console.log(icon);
@@ -114,15 +114,15 @@ async function fetchAPI(city){
 }
 function get5dTemp(data, i, dayCounter){
   let tempEl = document.getElementById("temp"+dayCounter);
-  tempEl.textContent = data.list[i].main.temp;
+  tempEl.textContent = `Temp: ${data.list[i].main.temp}°F`;
 }
 function get5dWind(data, i, dayCounter){
   let windEl = document.getElementById("wind"+dayCounter);
-  windEl.textContent = data.list[i].wind.speed;
+  windEl.textContent = `Wind: ${data.list[i].wind.speed} MPH`;
 }
 function get5dHumidity(data, i, dayCounter){
   let humidityEl = document.getElementById("humidity"+dayCounter);
-  humidityEl.textContent = data.list[i].main.humidity;
+  humidityEl.textContent = `Humidity ${data.list[i].main.humidity}%`;
 }
 function get5dIcon(data, i, dayCounter){
   let icon = data.list[i].weather[0].icon;
