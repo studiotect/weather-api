@@ -1,5 +1,3 @@
-var lat = 45
-var lon = 93
 var citySearch = document.querySelector("#query")
 var queryBtn = document.querySelector("#queryBtn")
 var cityHistory = [];
